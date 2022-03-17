@@ -1,1 +1,1 @@
-cmd /c "d: & cd D:\ML\python\Github_Rep\Learn-Python-The-Hard-Way\Learn-Python-The-Hard-Way & jupyter notebook"
+cmd /c "C: & cd C:\OneDrive\python\Github_Rep\Learn-Python-The-Hard-Way & jupyter notebook"
