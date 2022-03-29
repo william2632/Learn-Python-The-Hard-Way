@@ -10,10 +10,6 @@ import time
 def num_commas(number):
     return ("{:,}".format(number))
 
-def RowNumberinFile(filepath):
-
-    return 0
-
 def main(argv):
     if(len(argv)!=3):
         print("--------------------------------Error:")
