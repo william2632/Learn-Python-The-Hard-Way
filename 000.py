@@ -45,3 +45,6 @@ backUp = numbers[:]                     # this is link, not deep copy
 numbers = sorted(numbers)               # but sorted created a deep copy
 print('numbers after sort:',numbers)
 print('backUp:',backUp)
+
+s='012345'
+print(s[:3])

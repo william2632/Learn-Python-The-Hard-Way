@@ -1,8 +1,7 @@
 # 141. x的平方根
 # https://www.lintcode.com/problem/141/
 # https://www.lintcode.com/problem/sqrtx/description
-# Given a sorted array, 'remove' the duplicates in place such that each element appear only once and return the 'new' length.
-# Do not allocate extra space for another array, you must do this in place with constant memory. We will determine correctness by the length k of the returned array, intercepting the first k elements of the array.
+# Implement int sqrt(int x). Compute and return the square root of x.
 # 实现 int sqrt(int x) 函数，计算并返回 x 的平方根。
 
 class Solution:
@@ -10,25 +9,21 @@ class Solution:
     @param: nums: An ineger array
     @return: An integer
     """
-    def removeDuplicates(self, nums):
+    def sqrt(self, x: int) -> int:
         # write your code here
-        print(nums)
-        if(nums==[]):return 0
-        cInd=0
-        for i in range(1,len(nums)):
-            if(nums[cInd]!=nums[i]):
-                if(i-cInd!=1):
-                    nums[cInd+1]=nums[i]
-                cInd += 1
-        del nums[cInd+1:]
-        return cInd + 1
+        if(x==0): return 0
+        #if(x==1): return 1
+        for i in range(1,x+1):
+            if(i*i==x):return i
+            if(i*i>x):return i-1
 
 def main():
     S=Solution()
-    nums=[1,1,2];print('----before ----nums=',nums);rLen=S.removeDuplicates(nums);print('----after ----nums:',rLen,'; nums=',nums)
-    nums=[1,1,2,3,4,4,4,4,5,6];print('----before ----nums=',nums);rLen=S.removeDuplicates(nums);print('----after ----nums:',rLen,'; nums=',nums)
-    nums=[1,1,2,3,6,6,6,8,12,12];print('----before ----nums=',nums);rLen=S.removeDuplicates(nums);print('----after ----nums:',rLen,'; nums=',nums)
-
+    for i in range(0,20):
+        iSqrt=S.sqrt(i);print('----nums:',i,'; sqrt=',iSqrt)
 if __name__ == "__main__":
     main()
+    print(7//2)
+    print(11//2)
+    print(11/2)
 
