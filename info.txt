@@ -1,0 +1,174 @@
+----------------------------------------------------------------
+https://algorithm-visualizer.org/divide-and-conquer/bucket-sort
+https://www.ixigua.com/6914816324275274255
+https://www.toutiao.com/article/7083416916487881250/?app=news_article&timestamp=1649464154&use_new_style=1&req_id=20220409082913010208166050233DC763&group_id=7083416916487881250&share_token=610C964E-00E6-440F-A196-8D1A72D6D4BE&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1
+https://www.toutiao.com/article/6804965967957852685/?app=news_article&timestamp=1649462020&use_new_style=1&req_id=20220409075339010210027138183B1780&group_id=6804965967957852685&share_token=5F593663-6C9A-471A-9EC4-CBDFC66EBD73&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1
+
+渐进时间复杂度(asymptotic time complexity)，简称时间复杂度： T[n]
+渐进空间复杂度(asymptotic space complexity)，简称空间复杂度： P[n]
+
+Bucket-sort:
+	T[n]=O(n+k): n: number of buckets; k: the range of the input
+	P[n]=O(n*k)
+	sort numbers in the array:
+		a. setup some buckets(like 5);
+		b. find max in the array;
+		c. calculate bucket number for each number: ( number/(max+1) ) * 5, which will put the number into that bucket;
+		d. put number into that bucket, also sort inside the bucket 
+			( for the new number append to the end of the bucket, from last to first, compare to each number, and switch if the new number small than the one before it ).
+		e. append buckets together;
+Counting-sort: ( better for continues number ( with/without dups ) )  ( I think may not good for 稀疏阵列, sparse array )		( need count_array size: max(source-array) - min(source_array) +1 )
+	T[n]=O(n+r): n: number of elements; r: biggest number in array
+	P[n]=O(n+r)
+	sort numbers in the array:
+		a. setup count array which size equal to the max value(+1) in source array 
+				( like the source array is [10], with random value from 0 to 4, so the count array will be [5] )
+		b. set the value for count array by: if source_array[i]=J then count_array[J]++;
+				( so count_array become the number of value array, like source_array[10] has 2 '0', 1 '1', 3 '2', 1 '3', 3 '4', then the count_array become [0]=2;[1]=1;[2]=3;[3]=1;[4]=3;
+		c. sum up the value in the count_array: so it become: [0]=2;[1]=2+1=3;[2]=2+1+3=6;[3]=2+1+3+1=7;[4]=2+1+3+1+3=10;
+			so now the count_array become the address array. 
+			for example the value '4' in the source array(there are 3 '4'), and the address_array[4]=10, so in the target array, target_array[9]=4;target_array[8]=4;target_array[7]=4;
+			for example the value '3' in the source array(there are 1 '3'), and the address_array[3]=7, so in the target array, target_array[6]=3;
+			for example the value '2' in the source array(there are 3 '2'), and the address_array[2]=6, so in the target array, target_array[5]=2;target_array[4]=2;target_array[3]=2;
+			for example the value '1' in the source array(there are 1 '1'), and the address_array[1]=3, so in the target array, target_array[2]=1;
+			for example the value '0' in the source array(there are 2 '0'), and the address_array[0]=2, so in the target array, target_array[1]=0;target_array[0]=0;
+merger-sort:
+	T[n]=O(nlog(n)): n: number of elements;
+	P[n]=O(n)
+	topDown:	对半差成两份，递归一直差，差到最小相邻的两个，一个放左边，一个放右边，取回来，先取小的，这样最小单位就排好序了，
+				然后递归往上，左边 merge 右边，取回来，先取小的 （左边右边根据上边已经排好序了），这样这个单位也就排好序了。
+				一直到最上层...
+	bottomUp:	以2为一个block，遍历数组，左右两边比较，先取小的put in mergeTo（block 2), 这样所有的2以内都排好序了。(width=1，左右各宽1，实际cover2）
+				以4为一个block，遍历数组，左右两边比较，先取小的put in mergeTo（block 4), 这样所有的4以内都排好序了。(width=2，左右各宽2，实际cover4）
+				以8为一个block，遍历数组，左右两边比较，先取小的put in mergeTo（block 8), 这样所有的4以内都排好序了。(width=4，左右各宽8，实际cover8）
+				..																		(直到 width<数组总长，这时候 2*width>=数组总长)
+Pigeonhold-sort:
+	T[n]=O(n+N)): n: number of elements; N: number of possible key values
+	P[n]=O(n)
+	based on value difference(max-min+1), create a new hole array(二维数组).
+	the value from source arrary(V) been put into the hole_array[V-min].		(	holes[A[i] - min].push(A[i]);	)
+	then concatenate hole_array;
+Quick-sort:
+	T[n]=O(nlog(n)): n: number of elements;
+	P[n]=O(log(n))
+	with the number, partition other numbers in left( less than) and right(great than).
+
+
+
+
+Quick-sort:
+// import visualization libraries {
+const { Tracer, Array1DTracer, ChartTracer, LogTracer, Randomize, Layout, VerticalLayout } = require('algorithm-visualizer');
+// }
+
+// define tracer variables {
+const chart = new ChartTracer();
+const tracer = new Array1DTracer();
+const logger = new LogTracer();
+Layout.setRoot(new VerticalLayout([chart, tracer, logger]));
+//const D = Randomize.Array1D({ N: 15 });
+const D = Randomize.Array1D({ N: 15, value: () => Randomize.Integer({ min: 0, max: 30 }) });
+D[0]=3;
+D[1]=27;
+D[2]=25;
+D[3]=8;
+D[4]=20;
+D[5]=30;
+D[6]=14;
+D[7]=11;
+D[8]=2;
+D[9]=17;
+D[10]=17;
+D[11]=14;
+D[12]=4;
+D[13]=29;
+D[14]=22;
+
+tracer.set(D);
+tracer.chart(chart);
+Tracer.delay();
+// }
+
+// logger {
+logger.println(`original array = [${D.join(', ')}]`);
+// }
+
+function partition(D, low, high,prefix) {
+  let i;
+  let j;
+  let s;
+  logger.println(`${prefix}partition----------------start: low=${low}, high=${high}; perfix:${prefix};`);
+  while (high > low) {
+    logger.println(`${prefix}in while (high > low)--------start: low=${low}, high=${high};`);
+    i = low;
+    j = high;
+    s = D[low];
+    logger.println(`${prefix}in while (high > low)--------start: i=${i}, j=${j}, s=${s};  D=[${D.join(', ')}]`);
+    while (i < j) {
+      // visualize {
+      tracer.select(high);
+      tracer.select(low);
+      Tracer.delay();
+      // }
+      logger.println(`${prefix}0:inwhile (i < j): i=${i}, j=${j};  D=[${D.join(', ')}]`);
+      while (D[j] > s) {
+        // visualize {
+        tracer.select(j);
+        Tracer.delay();
+        tracer.deselect(j);
+        // }
+        j--;
+      }
+      D[i] = D[j];
+      logger.println(`${prefix}1:inwhile (i < j): i=${i}, j=${j};  D=[${D.join(', ')}]`);
+      // visualize {
+      tracer.patch(i, D[j]);
+      Tracer.delay();
+      tracer.depatch(i);
+      // }
+      while (s >= D[i] && i < j) {
+        // visualize {
+        tracer.select(i);
+        Tracer.delay();
+        tracer.deselect(i);
+        // }
+        i++;
+      }
+      D[j] = D[i];
+      logger.println(`${prefix}2:inwhile (i < j): i=${i}, j=${j};  D=[${D.join(', ')}]`);
+      // visualize {
+      tracer.patch(j, D[i]);
+      Tracer.delay();
+      tracer.depatch(j);
+      tracer.deselect(high);
+      tracer.deselect(low);
+      // }
+      
+    }
+    logger.println(`${prefix}a.in while (high > low): i=${i}, j=${j}, s=${s};  D=[${D.join(', ')}]`);
+    D[i] = s;
+    logger.println(`${prefix}b.in while (high > low): i=${i}, j=${j}, s=${s};  D=[${D.join(', ')}]`);
+    // visualize {
+    tracer.patch(i, s);
+    Tracer.delay();
+    tracer.depatch(i);
+    // }
+    let new_prefix=prefix + '----';
+    partition(D, low, i - 1, new_prefix);
+    logger.println(`${prefix}c.in while (high > low): i=${i}, j=${j}, s=${s}, low=${low};  D=[${D.join(', ')}]`);
+    low = i + 1;
+    logger.println(`${prefix}d.in while (high > low): i=${i}, j=${j}, s=${s}, low=${low};  D=[${D.join(', ')}]`);
+    logger.println(`${prefix}in while (high > low)--------end: low=${low}, high=${high};`);
+    logger.println(`${prefix}in while (high > low)--------end: i=${i}, j=${j}, s=${s};  D=[${D.join(', ')}]`);
+  }
+  logger.println(`${prefix}partition----------------end. low=${low}, high=${high}; perfix:${prefix};`);
+}
+
+function quicksort(D) {
+  partition(D, 0, D.length - 1,'');
+}
+
+quicksort(D);
+// logger {
+logger.println(`sorted array = [${D.join(', ')}]`);
+// }

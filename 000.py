@@ -1,4 +1,5 @@
 import copy
+import pandas as pd
 
 def main():
     print("Hello World!")
@@ -48,3 +49,16 @@ print('backUp:',backUp)
 
 s='012345'
 print(s[:3])
+
+f='filename.ext'
+print(f[:-5])
+
+#define result location
+path = r'D:\powershell'
+#files = os.listdir(path)
+#reading sheets
+#for file in files:
+file='processes_0418.xlsx'
+df_temp = pd.read_excel(path +"\\"+file, skiprows=6,usecols='A:G').dropna()
+df_temp['Filename'] = file[:-5]
+print(df_temp)
