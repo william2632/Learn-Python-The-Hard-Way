@@ -114,3 +114,5 @@ print(c,type(c))
 print(a,type(a))
 
 print('2022-06-19')
+
+print('2022-06-19_2')
