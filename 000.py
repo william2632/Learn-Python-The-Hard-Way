@@ -7,6 +7,7 @@ def main():
 if __name__ == "__main__":
     main()
 
+'''
 print("Guru99_01")
 l=[i for i in range(3,9)]
 print(l)
@@ -62,3 +63,52 @@ file='processes_0418.xlsx'
 df_temp = pd.read_excel(path +"\\"+file, skiprows=6,usecols='A:G').dropna()
 df_temp['Filename'] = file[:-5]
 print(df_temp)
+'''
+
+# concatenate.py
+def concatenate(**kwargs):
+    result = ""
+    # Iterating over the Python kwargs dictionary
+    #for arg in kwargs.values():
+    #    result += arg
+    argTuples=kwargs.items()
+    print(argTuples)
+    for aT in argTuples:
+        print(aT)
+    print(type(kwargs.items()))
+    print(type(kwargs.keys()))
+    print(type(kwargs.values()))
+    print(' '.join(kwargs.keys()))
+    result = ' '.join(kwargs.values())
+    return result
+
+print(concatenate(a="Real", b="Python", c="Is", d="Great", e="!"))
+
+
+def updatelist(li):
+    print(type(li))
+    li[0]='x'
+    return
+
+my_list = [1, 2, 3]
+print(my_list)
+print(*my_list)
+updatelist(my_list)
+print(my_list)
+
+def my_sum(a, b, c):
+    print(a + b + c)
+
+my_list = [1, 2, 3]
+my_sum(*my_list)
+#my_sum(my_list)
+
+
+my_list = [1, 2, 3, 4, 5, 6]
+a, *b, c = my_list
+print(a,type(a))
+print(b,type(b))
+print(c,type(c))
+
+*a, = "RealPython"
+print(a,type(a))

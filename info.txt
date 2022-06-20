@@ -1,5 +1,6 @@
 ----------------------------------------------------------------
 https://algorithm-visualizer.org/divide-and-conquer/bucket-sort
+https://visualgo.net/en
 https://www.ixigua.com/6914816324275274255
 https://www.toutiao.com/article/7083416916487881250/?app=news_article&timestamp=1649464154&use_new_style=1&req_id=20220409082913010208166050233DC763&group_id=7083416916487881250&share_token=610C964E-00E6-440F-A196-8D1A72D6D4BE&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1
 https://www.toutiao.com/article/6804965967957852685/?app=news_article&timestamp=1649462020&use_new_style=1&req_id=20220409075339010210027138183B1780&group_id=6804965967957852685&share_token=5F593663-6C9A-471A-9EC4-CBDFC66EBD73&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_ios&utm_campaign=client_share&wxshare_count=1
@@ -172,3 +173,29 @@ quicksort(D);
 // logger {
 logger.println(`sorted array = [${D.join(', ')}]`);
 // }
+
+
+----------------
+https://www.lintcode.com/collection
+https://www.lintcode.com/learn?dimension_id=62&level_id=63
+----------------
+https://www.lintcode.com/collection/282/		sf220518
+
+943 · Range Sum Query - Immutable		Easy
+1604 · Maximum Sum of Two Numbers		Medium
+645 · Find the Celebrity				Medium
+223 · Palindrome Linked List			Medium
+170 · Rotate List						Medium
+
+----------------
+https://www.lintcode.com/collection/192/
+
+
+----------------
+https://www.lintcode.com/collection/282/		sf220518
+
+943 · Range Sum Query - Immutable		Easy
+1604 · Maximum Sum of Two Numbers		Medium
+645 · Find the Celebrity				Medium
+223 · Palindrome Linked List			Medium
+170 · Rotate List						Medium
