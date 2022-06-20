@@ -112,3 +112,5 @@ print(c,type(c))
 
 *a, = "RealPython"
 print(a,type(a))
+
+print('2022-06-19')
